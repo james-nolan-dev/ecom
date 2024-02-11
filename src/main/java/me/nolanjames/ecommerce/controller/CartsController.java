@@ -19,9 +19,4 @@ public class CartsController implements CartApi {
         log.info("Request for customer ID: {}\nItem: {}", customerId, item);
         return ResponseEntity.ok(Collections.emptyList());
     }
-
-    @Override
-    public ResponseEntity<List<Cart>> getCartByCustomerId(String customerId) throws Exception {
-        throw new RuntimeException("Manual Exception thrown");
-    }
 }

@@ -14,8 +14,6 @@ processResources {
 }
 
 swaggerSources {
-    def typeMappings = 'URI=URI'
-    def importMappings = 'URI=java.net.URI'
     eStore {
         def apiYaml = "${rootDir}/src/main/resources/api/openapi.yaml"
         def configJson = "${rootDir}/src/main/resources/api/config.json"
@@ -24,14 +22,8 @@ swaggerSources {
         code {
             language = 'spring'
             configFile = file(configJson)
-            rawOptions = ['--ignore-file-override',
-                          ignoreFile,
-                          '--type-mappings', typeMappings,
-                          '--import-mappings',
-                          importMappings]
-                    as List<String>
+            rawOptions = ['--ignore-file-override', ignoreFile] as List<String>
             components = [models: true, apis: true, supportingFiles: 'ApiUtil.java']
-            dependsOn validation
         }
     }
 }
@@ -54,6 +46,9 @@ dependencies {
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
     implementation 'org.springframework.boot:spring-boot-starter-hateoas'
     implementation 'io.springfox:springfox-oas:3.0.0'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.flywaydb:flyway-core'
+    runtimeOnly    'com.h2database:h2'
 }
 
 tasks.named('test') {
